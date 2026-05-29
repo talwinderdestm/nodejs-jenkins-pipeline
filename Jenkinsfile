@@ -29,6 +29,16 @@ pipeline {
                 echo 'Test completed'
             }
         }
+
+        stage('Deploy') {
+            when {
+                branch 'main'
+            }
+            
+            steps {
+                echo 'Deploying the application'
+            }
+        }
     }
 
     post {
