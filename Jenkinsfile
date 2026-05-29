@@ -6,20 +6,29 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Install') {
             steps {
                 sh 'node -v'
                 sh 'npm -v'
                 sh 'npm install'
-                sh 'npm run build'
-                echo 'Build completed'
             }
         }
 
-        stage('Lint') {
-            steps {
-                sh 'npm run lint'
-                echo 'Lint completed'
+        stage('Build and Lint') {
+            parallel {
+                stage('Build') {
+                    steps {
+                        sh 'npm run build'
+                        echo 'Build completed'
+                    }
+                }
+
+                stage('Lint') {
+                    steps {
+                        sh 'npm run lint'
+                        echo 'Lint completed'
+                    }
+                }
             }
         }
 
