@@ -1,9 +1,15 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'nodejs-26.2.0'
+    }
+
     stages {
         stage('Build') {
             steps {
+                sh 'node -v'
+                sh 'npm -v'
                 sh 'npm install'
                 sh 'npm run build'
                 echo 'Build completed'
@@ -29,7 +35,7 @@ pipeline {
         success {
             echo 'Build, Lint, and Test completed successfully'
         }
-        
+
         failure {
             echo 'Build, Lint, and Test failed'
         }
